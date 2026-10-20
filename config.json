@@ -1,5 +1,7 @@
 {
   "status": "active",
+  "version": "3.0.1",
+  "autoUpdate": true,
   "globalKillSwitch": false,
   "trialHours": 24,
   "developer": "Henry Miller",
@@ -11,5 +13,5 @@
     "type": "info"
   },
   "remoteProxyAutoSync": true,
-  "pricingNotice": "Only $10 / Month - Contact Henry Miller on Telegram (@Henrymiller08) to Upgrade"
+  "pricingNotice": "Only  / Month - Contact Henry Miller on Telegram (@Henrymiller08) to Upgrade"
 }
