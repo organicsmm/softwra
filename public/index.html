@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Pro Enterprise v3.0 — Automated Direct Traffic</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="shortcut icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Dedicated Single Order View & Demo Expiry Styling */
+    .single-app-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 24px 40px 24px;
+    }
+    .app-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-icon-pro {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    }
+    .brand-title-wrap h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-title-wrap p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .topbar-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .trial-countdown-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #d97706;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    body.theme-light .trial-countdown-badge {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      color: #b45309;
+    }
+    .trial-countdown-badge.urgent {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+      animation: pulseAlert 1.5s infinite;
+    }
+    @keyframes pulseAlert {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Developer Branding Strip */
+    .developer-branding-strip {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .dev-badge-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dev-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #3b82f6;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    }
+    .dev-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dev-telegram-link {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .dev-telegram-link:hover {
+      text-decoration: underline;
+    }
+    .dev-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .telegram-btn-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0088cc;
+      color: #ffffff !important;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 136, 204, 0.3);
+      transition: transform 0.2s;
+    }
+    .telegram-btn-top:hover {
+      transform: translateY(-1px);
+    }
+
+    .enterprise-proxy-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .proxy-box-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .proxy-shield-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(16, 185, 129, 0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #10b981;
+      font-size: 1.2rem;
+    }
+    .proxy-box-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .proxy-box-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    .proxy-status-pill {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #059669;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Full-screen Trial Expiry Modal */
+    .expiry-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .expiry-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      border-radius: 20px;
+      max-width: 580px;
+      width: 100%;
+      padding: 36px 32px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    .expiry-icon-wrap {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 18px auto;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: #ef4444;
+    }
+    .expiry-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .expiry-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+    .pricing-pill {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.25rem;
+      padding: 10px 24px;
+      border-radius: 30px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.35);
+    }
+    .expiry-features {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      text-align: left;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .expiry-features li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .expiry-features li:last-child {
+      margin-bottom: 0;
+    }
+    .contact-admin-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: #0088cc;
+      color: #ffffff !important;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 16px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 4px 16px rgba(0, 136, 204, 0.4);
+    }
+    .contact-admin-btn:hover {
+      background: #0077b5;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
+    }
+  </style>
+</head>
+<body class="app-body theme-light">
+  <div class="single-app-container">
+
+    <!-- TOP APPLICATION BAR -->
+    <header class="app-topbar">
+      <div class="brand-group">
+        <div class="brand-icon-pro" style="padding: 0; background: transparent; box-shadow: none; width: 44px; height: 44px;">
+          <img src="logo.svg" alt="Traffic Pro Organic Logo" style="width: 44px; height: 44px; border-radius: 12px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);" />
+        </div>
+        <div class="brand-title-wrap">
+          <h1>Traffic Pro Enterprise <span class="badge badge-accent">v3.0</span></h1>
+          <p>Organic Human Traffic & Real Engagement Engine</p>
+        </div>
+      </div>
+
+      <div class="topbar-right-actions">
+        <!-- 24-Hour Trial Countdown Pill -->
+        <div id="trialCountdownPill" class="trial-countdown-badge">
+          <span>⏳</span>
+          <span id="txtTrialCountdown">Demo: Checking license...</span>
+        </div>
+
+        <!-- Theme Toggle Button -->
+        <button id="btnThemeToggle" class="theme-toggle-btn" title="Toggle Light / Dark Mode">
+          <span id="themeToggleIcon">☀️</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- DEVELOPER BRANDING & TELEGRAM BANNER -->
+    <div class="developer-branding-strip">
+      <div class="dev-badge-left">
+        <div class="dev-avatar" style="overflow: hidden; padding: 0; background: transparent; box-shadow: none;">
+          <img src="logo.svg" style="width: 38px; height: 38px; border-radius: 10px;" />
+        </div>
+        <div>
+          <div class="dev-name">
+            <span>Developed by <strong>Henry Miller</strong></span>
+            <a href="https://t.me/Henrymiller08" target="_blank" class="dev-telegram-link">(@Henrymiller08)</a>
+            <span class="badge badge-success" style="font-size: 0.7rem; padding: 2px 7px;">VERIFIED DEV</span>
+          </div>
+          <div class="dev-sub">
+            100% Organic Direct Visits • AdSense & Monetag Safe • Contact Henry Miller on Telegram for Custom Builds.
+          </div>
+        </div>
+      </div>
+      <div>
+        <a href="https://t.me/Henrymiller08" target="_blank" class="telegram-btn-top">
+          <span>💬 Telegram: @Henrymiller08</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- TOP KPI METRICS BAR -->
+    <section class="top-metrics-bar" style="margin-bottom: 20px;">
+      <div class="metric-block">
+        <div class="metric-top">
+          <span class="metric-label">Target Traffic Goal</span>
+          <div class="metric-icon-sub">🎯</div>
+        </div>
+        <div class="metric-number" id="statTotalTraffic">5,000</div>
+        <div class="metric-footer">Target sessions</div>
+      </div>
+
+      <div class="metric-block highlight-success">
+        <div class="metric-top">
+          <span class="metric-label">Delivered Visits</span>
+          <div class="metric-icon-sub">✅</div>
+        </div>
+        <div class="metric-number text-good" id="statCompleted">0</div>
+        <div class="metric-footer">Completed successfully</div>
+      </div>
+
+      <div class="metric-block highlight-accent">
+        <div class="metric-top">
+          <span class="metric-label">Active Browsers</span>
+          <div class="metric-icon-sub">🌐</div>
+        </div>
+        <div class="metric-number text-accent" id="statOpenBrowsers">0</div>
+        <div class="metric-footer">Concurrent threads</div>
+      </div>
+
+      <div class="metric-block highlight-purple">
+        <div class="metric-top">
+          <span class="metric-label">Residential IP Network</span>
+          <div class="metric-icon-sub">⚡</div>
+        </div>
+        <div class="metric-number text-purple" style="font-size: 1.25rem; font-weight: 800;">UNLIMITED</div>
+        <div class="metric-footer">Auto-Rotating IP per Visit</div>
+      </div>
+    </section>
+
+    <!-- ADMIN PRE-CONFIGURED PROXY BANNER (NO UPLOAD / NO SETUP REQUIRED) -->
+    <div class="enterprise-proxy-box">
+      <div class="proxy-box-left">
+        <div class="proxy-shield-icon">🛡️</div>
+        <div>
+          <div class="proxy-box-title">
+            <span>Enterprise Residential Proxy Gateway</span>
+            <span class="proxy-status-pill">Active & Unlimited</span>
+          </div>
+          <div class="proxy-box-desc">
+            All visits route automatically through fresh residential IPs (US / Global) with Cloudflare & Turnstile stealth clearance. Zero configuration required.
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="badge badge-success" style="font-size: 0.8rem; padding: 6px 14px;">Pre-Configured by Admin</span>
+      </div>
+    </div>
+
+    <!-- SINGLE ORDER MAIN CONFIGURATION CARD -->
+    <div class="pro-card" style="margin-bottom: 22px;">
+      <div class="card-head">
+        <div class="head-title-wrap">
+          <span class="card-dot"></span>
+          <h2>Single Order Traffic Setup</h2>
+        </div>
+        <span class="pill-chip">Single Destination Link</span>
+      </div>
+
+      <div class="card-content">
+        <!-- Target URL Field (Completely empty placeholder, no default link) -->
+        <div class="form-field">
+          <label class="field-label" for="dtTargetUrl">Destination Website / Target URL <span class="required">*</span></label>
+          <div class="input-icon-wrap">
+            <span class="input-icon">🔗</span>
+            <input type="url" id="dtTargetUrl" class="form-input" placeholder="Paste your target link (e.g. https://yourwebsite.com)" value="" />
+          </div>
+          <span class="field-desc">Enter the exact destination URL where real browser visits and engagement will be directed.</span>
+        </div>
+
+        <!-- 3-Column Settings Grid -->
+        <div class="two-col-grid" style="margin-top: 18px; margin-bottom: 20px;">
+          <!-- Left: Sessions & Concurrency -->
+          <div>
+            <div class="form-field">
+              <label class="field-label" for="dtSessions">Total Traffic Sessions (Goal)</label>
+              <input type="number" id="dtSessions" class="form-input" placeholder="5000" value="5000" min="1" />
+              <div class="quick-chips" style="margin-top: 8px;">
+                <button type="button" class="chip chip-goal" data-goal="1000">1,000</button>
+                <button type="button" class="chip chip-goal active" data-goal="5000">5,000</button>
+                <button type="button" class="chip chip-goal" data-goal="10000">10,000</button>
+                <button type="button" class="chip chip-goal" data-goal="50000">50,000</button>
+              </div>
+            </div>
+
+            <div class="form-field" style="margin-top: 16px;">
+              <div class="label-row">
+                <label class="field-label" for="dtThreads">Browsers Concurrency (Threads)</label>
+                <span class="badge badge-accent" id="threadsBadge">5x</span>
+              </div>
+              <div class="threads-selector-row">
+                <input type="number" id="dtThreads" class="form-input" placeholder="5" value="5" min="1" max="25" />
+                <div class="quick-chips">
+                  <button type="button" class="chip" data-threads="1">1x</button>
+                  <button type="button" class="chip" data-threads="3">3x</button>
+                  <button type="button" class="chip active" data-threads="5">5x</button>
+                  <button type="button" class="chip" data-threads="10">10x</button>
+                </div>
+              </div>
+              <span class="field-desc">Number of browsers running simultaneously at the exact same moment.</span>
+            </div>
+          </div>
+
+          <!-- Right: Duration & Headless Mode -->
+          <div>
+            <div class="form-field">
+              <div class="label-row">
+                <label class="field-label" for="dtVisitTimeMs">Visit & Scroll Duration</label>
+                <span class="badge badge-accent" id="stayTimeBadge">25s</span>
+              </div>
+              <div class="threads-selector-row">
+                <div class="input-unit-group" style="max-width: 120px;">
+                  <input type="number" id="dtVisitTimeMs" class="form-input" value="25" min="5" max="300" />
+                  <span class="input-unit-tag">Sec</span>
+                </div>
+                <div class="quick-chips">
+                  <button type="button" class="chip chip-duration" data-duration="15">15s</button>
+                  <button type="button" class="chip chip-duration active" data-duration="25">25s</button>
+                  <button type="button" class="chip chip-duration" data-duration="45">45s</button>
+                  <button type="button" class="chip chip-duration" data-duration="60">60s</button>
+                </div>
+              </div>
+              <span class="field-desc">Browser will load link, navigate, and perform natural reading scrolls for this time.</span>
+            </div>
+
+            <!-- Headless Mode Toggle (DEFAULT: ON) with Clear Explanatory Text -->
+            <div class="form-field-toggle clean-border" style="margin-top: 16px; padding: 14px 16px;">
+              <div class="toggle-info">
+                <div class="toggle-main-title">Headless Mode</div>
+                <div class="toggle-sub-title">
+                  <strong>ON (Silent):</strong> Browser background me chalega, screen par nahi dikhega.<br>
+                  <strong>OFF (Screen Mode):</strong> Jitne browser open honge sab screen par live dikhenge aur watch karenge.
+                </div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="dtHeadless" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Human Emulation & Stealth Features Strip -->
+        <div style="background: var(--bg-card-sub); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.3rem;">🤖</span>
+            <div>
+              <div style="font-size: 0.88rem; font-weight: 700;">Organic Human Scroll & Anti-Detect Shield</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Random mouse trajectories, variable scrolling speeds, Canvas / WebGL fingerprint randomization</div>
+            </div>
+          </div>
+          <span class="badge badge-success">Enabled by Default</span>
+        </div>
+
+        <!-- Action Controls: Big Start & Stop Buttons -->
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <button id="btnStartDirect" class="btn btn-primary btn-lg shadow-glow" style="flex: 1; padding: 16px 28px; font-size: 1.1rem; font-weight: 800;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span id="txtStartDirect">Start Direct Traffic</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE REAL-TIME ACTIVITY TERMINAL -->
+    <div class="pro-card">
+      <div class="card-head">
+        <div class="head-title-wrap">
+          <span class="card-dot green-dot"></span>
+          <h2>Live Visitor Activity & Real-Time Console</h2>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="badge badge-sub" id="logCounter">0 logs</span>
+          <button id="btnClearLogs" class="btn btn-outline-danger" style="padding: 4px 10px; font-size: 0.75rem;">Clear</button>
+        </div>
+      </div>
+      <div class="card-content p-0">
+        <div class="terminal-body" id="consoleBox" style="height: 250px; overflow-y: auto; background: var(--bg-input); padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;">
+          <div id="consoleLogs">
+            <div class="log-line info">[System] Traffic Pro Enterprise v3.0 Engine ready. Paste your link and click Start Direct Traffic.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- 24-HOUR TRIAL EXPIRED FULL-SCREEN MODAL -->
+  <div id="expiryOverlay" class="expiry-overlay" style="display: none;">
+    <div class="expiry-card">
+      <div class="expiry-icon-wrap">🔒</div>
+      <h2 class="expiry-title">24-Hour Free Demo Expired</h2>
+      <p class="expiry-text">
+        Your 24-hour evaluation period has completed. All active browser instances have been cleanly terminated.
+        <br><br>
+        To continue generating unlimited direct web traffic with our pre-configured Enterprise Residential Proxies, upgrade to the full commercial license.
+      </p>
+
+      <div class="pricing-pill">
+        Only $10 / Month
+      </div>
+
+      <div class="expiry-features">
+        <div style="font-weight: 700; color: var(--text-main); margin-bottom: 10px;">Full License Includes:</div>
+        <ul>
+          <li><span>✅</span> Unlimited Enterprise Residential Proxies (Worldwide & US)</li>
+          <li><span>✅</span> Up to 50 Concurrent Browser Threads (Visible Screen or Headless)</li>
+          <li><span>✅</span> Google AdSense & Monetag Safe Organic Traffic Engine</li>
+          <li><span>✅</span> Cloudflare Turnstile & Anti-Bot Auto Clearance</li>
+          <li><span>✅</span> Human-like Reading Scrolls & Bounce Rate Optimization</li>
+          <li><span>✅</span> Developed by <strong>Henry Miller</strong> (@Henrymiller08)</li>
+        </ul>
+      </div>
+
+      <a id="btnContactAdmin" href="https://t.me/Henrymiller08" target="_blank" class="contact-admin-btn">
+        <span>💬 Contact Henry Miller on Telegram (@Henrymiller08) to Upgrade ($10/mo)</span>
+      </a>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
