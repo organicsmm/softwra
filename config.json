@@ -1,0 +1,15 @@
+{
+  "status": "active",
+  "globalKillSwitch": false,
+  "trialHours": 24,
+  "developer": "Henry Miller",
+  "telegram": "https://t.me/Henrymiller08",
+  "telegramHandle": "@Henrymiller08",
+  "announcement": {
+    "enabled": false,
+    "message": "Traffic Pro Enterprise: 100% Organic Direct Visits Active",
+    "type": "info"
+  },
+  "remoteProxyAutoSync": true,
+  "pricingNotice": "Only $10 / Month - Contact Henry Miller on Telegram (@Henrymiller08) to Upgrade"
+}
